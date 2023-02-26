@@ -14,8 +14,9 @@ const openai = new OpenAIApi(configuration);
 
 const predict = async function () {
   const response = await openai.createImage({
-    prompt: "A cute baby sea otter",
-    n: 2,
+    prompt:
+      "a yellow chair sitting in a living room next to a plant, inspired by Eszter Mattioni, featured on shutterstock, minimalism, people looking at a house, wooden walls brass panels, highly photographic render, listing image, empty room with black walls",
+    n: 1,
     size: "256x256",
     response_format: "b64_json",
   });
@@ -30,6 +31,6 @@ predict().then((response) => {
     const buffer = Buffer.from(b64, "base64");
     const filename = `image_${now}_${i}.png`;
     console.log("Writing image" + filename);
-    fs.writeFileSync(filename, buffer);
+    fs.writeFileSync("image/" + filename, buffer);
   }
 });
