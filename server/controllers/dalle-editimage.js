@@ -4,12 +4,13 @@ const fs = require("fs");
 // Import My OPEN-AI key
 require("dotenv").config();
 const apiKey = process.env.OPENAI_API;
+console.log(apiKey);
 
 const configuration = new Configuration({ apiKey });
 const openai = new OpenAIApi(configuration);
 
-const src = "./image/coder.png";
-const mask = "./image/mask.png";
+const src = "../image/coder.png";
+const mask = "../image/mask.png";
 
 const editImage = async function () {
   const response = await openai.createImageEdit(
