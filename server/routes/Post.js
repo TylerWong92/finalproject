@@ -4,8 +4,9 @@ const express = require("express");
 const router = express.Router();
 const { Posts } = require("../models");
 
-router.get("/", (req, res) => {
-  res.send("Hello World");
+router.get("/", async (req, res) => {
+  const listOfPosts = await Posts.findAll();
+  res.json(listOfPosts);
 });
 
 router.post("/", async (req, res) => {
