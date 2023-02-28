@@ -2,11 +2,10 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 
+// require("dotenv").config();
+
 app.use(express.json());
 app.use(cors());
-
-require("dotenv").config();
-const apiKey = process.env.OPENAI_API;
 
 //Import db schema from models
 const db = require("./models");

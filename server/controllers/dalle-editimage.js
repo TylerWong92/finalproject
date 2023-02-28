@@ -1,9 +1,9 @@
 const { Configuration, OpenAIApi } = require("openai");
 const fs = require("fs");
 
-// Import My OPEN-AI key
-require("dotenv").config();
+require("dotenv").config({ path: "../.env" });
 const apiKey = process.env.OPENAI_API;
+
 console.log(apiKey);
 
 const configuration = new Configuration({ apiKey });
