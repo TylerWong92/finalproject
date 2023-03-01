@@ -19,9 +19,19 @@ const CreatePost = () => {
   });
 
   const onSubmit = (data) => {
-    axios.post("http://localhost:3001/posts", data).then((response) => {
-      navigate("/");
-    });
+    axios
+      .post("http://localhost:3001/posts", data, {
+        headers: {
+          accessToken: sessionStorage.getItem("accessToken"),
+        },
+      })
+      .then((response) => {
+        if (response.data.error) {
+          alert("User Not Login");
+        } else {
+          navigate("/");
+        }
+      });
   };
 
   return (
