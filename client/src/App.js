@@ -14,6 +14,12 @@ function App() {
         <Link to="/createpost">create a post </Link>
         <Link to="/login">login </Link>
         <Link to="/registration">registrations </Link>
+        {!localStorage.getItem("accessToken") && (
+          <div>
+            <Link to="/login">login </Link>
+            <Link to="/registration">registrations </Link>
+          </div>
+        )}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/createpost" element={<CreatePost />} />

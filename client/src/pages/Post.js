@@ -8,20 +8,15 @@ const Post = () => {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
 
-  const getComments = () => {
-    axios.get(`http://localhost:3001/comments/${id}`).then((response) => {
-      setComments(response.data);
-    });
-  };
-
+  // Get Single Post by Id and also fetch their users comments.
   useEffect(() => {
     axios.get(`http://localhost:3001/posts/byId/${id}`).then((response) => {
       setPostObject(response.data);
     });
-    getComments();
-    // axios.get(`http://localhost:3001/comments/${id}`).then((response) => {
-    //   setComments(response.data);
-    // });
+
+    axios.get(`http://localhost:3001/comments/${id}`).then((response) => {
+      setComments(response.data);
+    });
     // eslint-disable-next-line
   }, []);
 
@@ -35,7 +30,7 @@ const Post = () => {
         },
         {
           headers: {
-            accessToken: sessionStorage.getItem("accessToken"),
+            accessToken: localStorage.getItem("accessToken"),
           },
         }
       )
@@ -43,10 +38,12 @@ const Post = () => {
         if (response.data.error) {
           alert("User Not Login");
         } else {
-          const commentToAdd = { commentBody: newComment };
+          const commentToAdd = {
+            commentBody: newComment,
+            username: response.data.username,
+          };
           setComments([...comments, commentToAdd]);
           setNewComment("");
-          getComments();
         }
       });
   };
