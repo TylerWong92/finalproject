@@ -8,19 +8,25 @@ const Post = () => {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
 
+  const getComments = () => {
+    axios.get(`http://localhost:3001/comments/${id}`).then((response) => {
+      setComments(response.data);
+    });
+  };
+
   useEffect(() => {
     axios.get(`http://localhost:3001/posts/byId/${id}`).then((response) => {
       setPostObject(response.data);
     });
-
-    axios.get(`http://localhost:3001/comments/${id}`).then((response) => {
-      setComments(response.data);
-    });
+    getComments();
+    // axios.get(`http://localhost:3001/comments/${id}`).then((response) => {
+    //   setComments(response.data);
+    // });
     // eslint-disable-next-line
   }, []);
 
-  const addComment = () => {
-    axios
+  const addComment = async () => {
+    await axios
       .post(
         "http://localhost:3001/comments",
         {
@@ -40,6 +46,7 @@ const Post = () => {
           const commentToAdd = { commentBody: newComment };
           setComments([...comments, commentToAdd]);
           setNewComment("");
+          getComments();
         }
       });
   };
@@ -61,7 +68,12 @@ const Post = () => {
       />
       <button onClick={addComment}>Submit Comment</button>
       {comments.map((comment, key) => {
-        return <div key={key}>{comment.commentBody}</div>;
+        return (
+          <div key={key}>
+            <label>Username: {comment.username}</label>
+            {comment.commentBody}
+          </div>
+        );
       })}
     </div>
   );

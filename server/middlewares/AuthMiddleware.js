@@ -7,7 +7,8 @@ const validateToken = (req, res, next) => {
 
   try {
     const validToken = verify(accessToken, "importantsecret");
-
+    //Store user name req.user pass it to endpoint
+    req.user = validToken;
     if (validToken) {
       return next();
     }
