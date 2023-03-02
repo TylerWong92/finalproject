@@ -1,5 +1,6 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
+const { validateToken } = require("../middlewares/AuthMiddleware");
 
 // Use express router
 const router = express.Router();
@@ -31,6 +32,11 @@ router.post("/login", async (req, res) => {
     );
     res.json(accessToken);
   });
+});
+
+// Check if user has the valid token prevent fake token
+router.get("/valid", validateToken, (req, res) => {
+  res.json(req.user);
 });
 
 module.exports = router;

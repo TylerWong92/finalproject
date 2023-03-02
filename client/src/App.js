@@ -7,15 +7,26 @@ import Login from "./pages/Login";
 import Registration from "./pages/Registration";
 import { AuthContext } from "./helpers/AuthContext";
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 function App() {
   const [authState, setAuthState] = useState(false);
 
   // When page is refresh it would setState to true if accessToken
   useEffect(() => {
-    if (localStorage.getItem("accessToken")) {
-      setAuthState(true);
-    }
+    axios
+      .get("http://localhost:3001/auth/valid", {
+        headers: {
+          accessToken: localStorage.getItem("accessToken"),
+        },
+      })
+      .then((response) => {
+        if (response.data.error) {
+          setAuthState(false);
+        } else {
+          setAuthState(true);
+        }
+      });
   }, []);
 
   return (
