@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import { AuthContext } from "../helpers/AuthContext";
 
 const Post = () => {
   let { id } = useParams();
   const [postObject, setPostObject] = useState({});
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
+  const { authState } = useContext(AuthContext);
 
   // Get Single Post by Id and also fetch their users comments.
   useEffect(() => {
@@ -54,6 +56,10 @@ const Post = () => {
       <div>{postObject.title}</div>
       <div>{postObject.postText}</div>
       <div>{postObject.username}</div>
+      {authState.username === postObject.username && (
+        <button>DELETE POST</button>
+      )}
+
       <h1 className="text-3xl">Comments</h1>
       <input
         value={newComment}

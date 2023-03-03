@@ -18,6 +18,7 @@ router.get("/byId/:id", async (req, res) => {
 
 router.post("/", validateToken, async (req, res) => {
   const post = req.body;
+  //Add new fill in req.body username using validateToken
   post.username = req.user.username;
   await Posts.create(post);
   res.json(post);
