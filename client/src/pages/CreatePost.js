@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+// import { AuthContext } from "../helpers/AuthContext";
 
 const CreatePost = () => {
+  // const { authState } = useContext(AuthContext);
+
   //Navigate to home page after onSubmit
   let navigate = useNavigate();
   const initialValues = {
