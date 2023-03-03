@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../helpers/AuthContext";
 
@@ -9,6 +9,9 @@ const Post = () => {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
   const { authState } = useContext(AuthContext);
+
+  // For redirect pages after action
+  let navigate = useNavigate();
 
   // Get Single Post by Id and also fetch their users comments.
   useEffect(() => {
@@ -50,6 +53,18 @@ const Post = () => {
       });
   };
 
+  const deletePost = (id) => {
+    axios
+      .delete(`http://localhost:3001/posts/${id}`, {
+        headers: {
+          accessToken: localStorage.getItem("accessToken"),
+        },
+      })
+      .then(() => {
+        navigate("/");
+      });
+  };
+
   return (
     <div>
       <h1 className="text-3xl">post-inner</h1>
@@ -57,7 +72,13 @@ const Post = () => {
       <div>{postObject.postText}</div>
       <div>{postObject.username}</div>
       {authState.username === postObject.username && (
-        <button>DELETE POST</button>
+        <button
+          onClick={() => {
+            deletePost(postObject.id);
+          }}
+        >
+          DELETE POST
+        </button>
       )}
 
       <h1 className="text-3xl">Comments</h1>
