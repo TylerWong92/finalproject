@@ -39,4 +39,15 @@ router.get("/valid", validateToken, (req, res) => {
   res.json(req.user);
 });
 
+// Find user info without the user password
+router.get("/basicinfo/:id", async (req, res) => {
+  const id = req.params.id;
+
+  const basicInfo = await Users.findByPk(id, {
+    attributes: { exclude: ["password"] },
+  });
+
+  res.json(basicInfo);
+});
+
 module.exports = router;
