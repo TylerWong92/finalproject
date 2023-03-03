@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
@@ -13,12 +13,10 @@ const CreatePost = () => {
   const initialValues = {
     title: "",
     postText: "",
-    username: "",
   };
   const validationSchema = Yup.object().shape({
     title: Yup.string().required(),
     postText: Yup.string().required(),
-    username: Yup.string().min(3).max(15).required(),
   });
 
   const onSubmit = (data) => {
@@ -52,9 +50,7 @@ const CreatePost = () => {
           <legend>Post:</legend>
           <ErrorMessage name="postText" component="span" />
           <Field id="inputCreatePost" name="postText" placeholder="(Ex.Post)" />
-          <legend>Username:</legend>
-          <ErrorMessage name="username" component="span" />
-          <Field id="inputCreatePost" name="username" placeholder="(Ex.john)" />
+
           <button type="submit"> Create Post </button>
         </Form>
       </Formik>
