@@ -11,7 +11,11 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 function App() {
-  const [authState, setAuthState] = useState(false);
+  const [authState, setAuthState] = useState({
+    username: "",
+    id: 0,
+    status: false,
+  });
 
   // When page is refresh it would setState to true if accessToken
   useEffect(() => {
@@ -23,12 +27,27 @@ function App() {
       })
       .then((response) => {
         if (response.data.error) {
-          setAuthState(false);
+          //Destructure the object to just change a single fill status
+          setAuthState({ ...authState, status: false });
         } else {
-          setAuthState(true);
+          setAuthState({
+            username: response.data.username,
+            id: response.data.id,
+            status: true,
+          });
         }
       });
+    // eslint-disable-next-line
   }, []);
+
+  const logout = () => {
+    localStorage.removeItem("accessToken");
+    setAuthState({
+      username: "",
+      id: 0,
+      status: false,
+    });
+  };
 
   return (
     <div className="App">
@@ -36,12 +55,15 @@ function App() {
         <Router>
           <Link to="/">Home </Link>
           <Link to="/createpost">create a post </Link>
-          {!authState && (
+          {!authState.status ? (
             <div>
               <Link to="/login">login </Link>
               <Link to="/registration">registrations </Link>
             </div>
+          ) : (
+            <button onClick={logout}>logout!</button>
           )}
+          <h1>{authState.username}</h1>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/createpost" element={<CreatePost />} />

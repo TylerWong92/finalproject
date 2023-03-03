@@ -30,11 +30,11 @@ router.post("/login", async (req, res) => {
       { username: user.username, id: user.id },
       "importantsecret"
     );
-    res.json(accessToken);
+    res.json({ token: accessToken, username: username, id: user.id });
   });
 });
 
-// Check if user has the valid token prevent fake token
+// Check if user has the valid token prevent fake token and return user information
 router.get("/valid", validateToken, (req, res) => {
   res.json(req.user);
 });
