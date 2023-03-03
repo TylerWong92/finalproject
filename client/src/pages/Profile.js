@@ -15,6 +15,7 @@ const Profile = () => {
     axios.get(`http://localhost:3001/posts/byuserId/${id}`).then((response) => {
       setListOfPosts(response.data);
     });
+    // eslint-disable-next-line
   }, []);
 
   return (

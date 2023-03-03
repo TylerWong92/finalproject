@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Home = () => {
   const [listOfPosts, setListOfPosts] = useState([]);
@@ -18,15 +18,16 @@ const Home = () => {
     <div>
       {listOfPosts.map((value, key) => {
         return (
-          <div
-            key={key}
-            onClick={() => {
-              navigate(`/post/${value.id}`);
-            }}
-          >
-            <div>{value.title}</div>
+          <div key={key}>
+            <div
+              onClick={() => {
+                navigate(`/post/${value.id}`);
+              }}
+            >
+              {value.title}
+            </div>
             <div>{value.postText}</div>
-            <div>{value.username}</div>
+            <Link to={`/profile/${value.UserId}`}>{value.username}</Link>
           </div>
         );
       })}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../helpers/AuthContext";
 
@@ -70,7 +70,9 @@ const Post = () => {
       <h1 className="text-3xl">post-inner</h1>
       <div>{postObject.title}</div>
       <div>{postObject.postText}</div>
-      <div>{postObject.username}</div>
+
+      <Link to={`/profile/${postObject.UserId}`}>{postObject.username}</Link>
+
       {authState.username === postObject.username && (
         <button
           onClick={() => {
