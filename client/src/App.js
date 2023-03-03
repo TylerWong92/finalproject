@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import CreatePost from "./pages/CreatePost";
 import Post from "./pages/Post";
 import Login from "./pages/Login";
+import Profile from "./pages/Profile";
 import PageNotFound from "./pages/PageNotFound";
 import Registration from "./pages/Registration";
 import { AuthContext } from "./helpers/AuthContext";
@@ -62,6 +63,7 @@ function App() {
             <div>
               <Link to="/">Home </Link>
               <Link to="/createpost">create a post </Link>
+              <Link to="/profile">your profile page </Link>
             </div>
           )}
           <h1>{authState.username}</h1>
@@ -72,6 +74,7 @@ function App() {
             <Route path="/post/:id" element={<Post />} />
             <Route path="/registration" element={<Registration />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/profile/:id" element={<Profile />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </Router>
