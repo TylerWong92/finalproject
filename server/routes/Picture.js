@@ -3,6 +3,8 @@ const router = express.Router();
 // const { Comments } = require("../models");
 const { validateToken } = require("../middlewares/AuthMiddleware");
 const { Configuration, OpenAIApi } = require("openai");
+const { Picture } = require("../models");
+const { Buffer } = require("buffer");
 
 //Import My OPEN-AI key
 require("dotenv").config();
@@ -27,11 +29,33 @@ const predict = async function (req) {
 
   return response.data;
 };
-
+// Generate Artwork from frontend not store in database
 router.post("/", async (req, res) => {
   // res.json("Image Created");
   data = await predict(req);
   res.json(data);
+});
+
+// Generated Artwork from frontend store in database
+// router.post("/store", validateToken, async (req, res) => {
+//   const picture = req.body;
+//   //Add new fill in req.body username using validateToken
+//   picture.username = req.user.username;
+//   picture.UserId = req.user.id;
+//   await Posts.create(picture);
+//   res.json(picture);
+// });
+router.post("/store", async (req, res) => {
+  const buffer = Buffer.from(req.body.imageData, "base64");
+  try {
+    const picture = await Picture.create({
+      data: buffer,
+    });
+    res.json("successful");
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
 });
 
 module.exports = router;

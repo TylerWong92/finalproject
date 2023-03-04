@@ -4,7 +4,7 @@ const cors = require("cors");
 
 // require("dotenv").config();
 
-app.use(express.json());
+app.use(express.json({ limit: "25mb" }));
 app.use(cors());
 
 //Import db schema from models
@@ -17,7 +17,7 @@ const commentsRouter = require("./routes/Comments");
 app.use("/comments", commentsRouter);
 const usersRouter = require("./routes/Users");
 app.use("/auth", usersRouter);
-const imageRouter = require("./routes/Image");
+const imageRouter = require("./routes/Picture");
 app.use("/image", imageRouter);
 
 //Run DB models before running app

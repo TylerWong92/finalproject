@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import axios from "axios";
-// const { Buffer } = require("buffer");
 
 const CreateImage = () => {
   const [prompt, setPrompt] = useState("");
@@ -11,8 +10,16 @@ const CreateImage = () => {
     const response = await axios.post("http://localhost:3001/image", {
       prompt,
     });
-    // console.log(response.data.data[0].b64_json); // Check the response data
+    console.log(response.data); // Check the response data
     setImageData(`data:image/png;base64,${response.data.data[0].b64_json}`);
+  };
+
+  const handleClick = async () => {
+    await axios
+      .post(`http://localhost:3001/image/store`, { imageData })
+      .then((response) => {
+        console.log("image stored");
+      });
   };
 
   return (
@@ -28,6 +35,7 @@ const CreateImage = () => {
         <button type="submit">Generate Image</button>
       </form>
       {imageData && <img src={imageData} alt="Generated image" />}
+      <button onClick={handleClick}>Sent this to database</button>
     </div>
   );
 };
