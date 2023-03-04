@@ -12,10 +12,21 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-const predict = async function () {
+// const predict = async function () {
+//   const response = await openai.createImage({
+//     prompt:
+//       "a yellow chair sitting in a living room next to a plant, inspired by Eszter Mattioni, featured on shutterstock, minimalism, people looking at a house, wooden walls brass panels, highly photographic render, listing image, empty room with black walls",
+//     n: 1,
+//     size: "256x256",
+//     response_format: "b64_json",
+//   });
+//   //   console.log(response.data);
+//   return response.data;
+// };
+
+const predict = async function (response) {
   const response = await openai.createImage({
-    prompt:
-      "a yellow chair sitting in a living room next to a plant, inspired by Eszter Mattioni, featured on shutterstock, minimalism, people looking at a house, wooden walls brass panels, highly photographic render, listing image, empty room with black walls",
+    prompt: response.data.prompt,
     n: 1,
     size: "256x256",
     response_format: "b64_json",
@@ -23,7 +34,6 @@ const predict = async function () {
   //   console.log(response.data);
   return response.data;
 };
-
 // predict().then((response) => {
 //   const now = Date.now();
 //   for (let i = 0; i < response.data.length; i++) {

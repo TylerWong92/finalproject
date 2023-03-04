@@ -17,6 +17,8 @@ const commentsRouter = require("./routes/Comments");
 app.use("/comments", commentsRouter);
 const usersRouter = require("./routes/Users");
 app.use("/auth", usersRouter);
+const imageRouter = require("./routes/Image");
+app.use("/image", imageRouter);
 
 //Run DB models before running app
 db.sequelize.sync().then(() => {
