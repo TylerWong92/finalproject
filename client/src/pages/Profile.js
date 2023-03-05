@@ -7,6 +7,7 @@ const Profile = () => {
   let navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [listOfPosts, setListOfPosts] = useState([]);
+  const [listOfImages, setListOfImages] = useState([]);
 
   useEffect(() => {
     axios.get(`http://localhost:3001/auth/basicinfo/${id}`).then((response) => {
@@ -14,6 +15,9 @@ const Profile = () => {
     });
     axios.get(`http://localhost:3001/posts/byuserId/${id}`).then((response) => {
       setListOfPosts(response.data);
+    });
+    axios.get(`http://localhost:3001/image/byuserId/${id}`).then((response) => {
+      setListOfImages(response.data);
     });
     // eslint-disable-next-line
   }, []);
@@ -37,9 +41,30 @@ const Profile = () => {
             </div>
           );
         })}
+        <div>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</div>
+        <div>
+          {listOfImages.map((value, key) => {
+            return (
+              <div
+                key={key}
+                onClick={() => {
+                  navigate(`/CreatePost/${value.id}`);
+                }}
+              >
+                <div>{value.id}</div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
 };
 
 export default Profile;
+
+// <button
+// onClick={() => {
+//   navigate(`/post/CreatePost/${value.id}`);
+// }}
+// ></button>

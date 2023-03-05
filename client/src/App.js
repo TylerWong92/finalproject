@@ -72,7 +72,7 @@ function App() {
           {authState.status && <button onClick={logout}>logout!</button>}
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/createpost" element={<CreatePost />} />
+            <Route path="/createpost/:imageId" element={<CreatePost />} />
             <Route path="/createimage" element={<CreateImage />} />
             <Route path="/post/:id" element={<Post />} />
             <Route path="/registration" element={<Registration />} />

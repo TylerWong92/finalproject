@@ -1,27 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-// import { AuthContext } from "../helpers/AuthContext";
+import { useParams, useNavigate } from "react-router-dom";
 
 const CreatePost = () => {
-  // const { authState } = useContext(AuthContext);
+  // const [imageData, setImageData] = useState();
+
+  let { imageId } = useParams();
 
   //Navigate to home page after onSubmit
   let navigate = useNavigate();
   const initialValues = {
     title: "",
     postText: "",
+    PictureId: imageId,
   };
   const validationSchema = Yup.object().shape({
     title: Yup.string().required(),
     postText: Yup.string().required(),
   });
 
-  const onSubmit = (data) => {
-    axios
-      .post("http://localhost:3001/posts", data, {
+  const onSubmit = async (data) => {
+    await axios
+      .post(`http://localhost:3001/posts`, data, {
         headers: {
           accessToken: localStorage.getItem("accessToken"),
         },
