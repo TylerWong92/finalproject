@@ -16,7 +16,15 @@ const CreateImage = () => {
 
   const handleClick = async () => {
     await axios
-      .post(`http://localhost:3001/image/store`, { imageData })
+      .post(
+        `http://localhost:3001/image/store`,
+        { imageData },
+        {
+          headers: {
+            accessToken: localStorage.getItem("accessToken"),
+          },
+        }
+      )
       .then((response) => {
         console.log("image stored");
       });

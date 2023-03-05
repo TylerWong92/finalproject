@@ -45,12 +45,14 @@ router.post("/", async (req, res) => {
 //   await Posts.create(picture);
 //   res.json(picture);
 // });
-router.post("/store", async (req, res) => {
+router.post("/store", validateToken, async (req, res) => {
   const buffer = Buffer.from(req.body.imageData, "base64");
   try {
     const picture = await Picture.create({
       data: buffer,
+      UserId: req.user.id,
     });
+    // picture.UserId = req.user.id;
     res.json("successful");
   } catch (err) {
     console.error(err);

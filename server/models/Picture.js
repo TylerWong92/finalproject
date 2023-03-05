@@ -1,3 +1,5 @@
+const { INTEGER } = require("sequelize");
+
 module.exports = (sequelize, DataTypes) => {
   const Picture = sequelize.define("Picture", {
     data: {
