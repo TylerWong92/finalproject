@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { AuthContext } from "../helpers/AuthContext";
 
 const Profile = () => {
   let { id } = useParams();
@@ -8,6 +9,7 @@ const Profile = () => {
   const [username, setUsername] = useState("");
   const [listOfPosts, setListOfPosts] = useState([]);
   const [listOfImages, setListOfImages] = useState([]);
+  const { authState } = useContext(AuthContext);
 
   useEffect(() => {
     axios.get(`http://localhost:3001/auth/basicinfo/${id}`).then((response) => {
@@ -21,6 +23,18 @@ const Profile = () => {
     });
     // eslint-disable-next-line
   }, []);
+
+  const handleDelete = async (data) => {
+    console.log(data);
+    await axios.delete(`http://localhost:3001/image/${data}`, data);
+    // .then((response) => {
+    //   if (response.data.error) {
+    //     alert("User Not Login");
+    //   } else {
+    //     navigate("/");
+    //   }
+    // });
+  };
 
   return (
     <div>
@@ -45,13 +59,21 @@ const Profile = () => {
         <div>
           {listOfImages.map((value, key) => {
             return (
-              <div
-                key={key}
-                onClick={() => {
-                  navigate(`/CreatePost/${value.id}`);
-                }}
-              >
-                <div>{value.id}</div>
+              <div key={key}>
+                <div
+                  onClick={() => {
+                    navigate(`/CreatePost/${value.id}`);
+                  }}
+                >
+                  <div>{value.id}</div>
+                </div>
+                <button
+                  onClick={() => {
+                    handleDelete(value.id);
+                  }}
+                >
+                  DELETE
+                </button>
               </div>
             );
           })}

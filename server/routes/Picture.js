@@ -66,6 +66,15 @@ router.post("/store", validateToken, async (req, res) => {
   }
 });
 
+router.delete("/:id", async (req, res) => {
+  const PictureId = req.params.id;
+  await Picture.destroy({
+    where: {
+      id: PictureId,
+    },
+  });
+});
+
 module.exports = router;
 
 // router.post("/", async (req, res) => {
