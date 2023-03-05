@@ -52,10 +52,10 @@ router.get("/byuserId/:id", async (req, res) => {
 //   res.json(picture);
 // });
 router.post("/store", validateToken, async (req, res) => {
-  const buffer = Buffer.from(req.body.imageData, "base64");
+  // const buffer = Buffer.from(req.body.imageData, "base64");
   try {
     const picture = await Picture.create({
-      data: buffer,
+      data: req.body.imageData,
       UserId: req.user.id,
     });
     // picture.UserId = req.user.id;

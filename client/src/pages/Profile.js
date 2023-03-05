@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../helpers/AuthContext";
+const { Buffer } = require("buffer");
 
 const Profile = () => {
   let { id } = useParams();
@@ -26,7 +27,7 @@ const Profile = () => {
 
   const handleDelete = async (data) => {
     console.log(data);
-    await axios.delete(`http://localhost:3001/image/${data}`, data);
+    await axios.delete(`http://localhost:3001/image/${data}`);
     // .then((response) => {
     //   if (response.data.error) {
     //     alert("User Not Login");
@@ -58,6 +59,18 @@ const Profile = () => {
         <div>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</div>
         <div>
           {listOfImages.map((value, key) => {
+            // const displayImage = `data:image/png;base64,${value.data.data}`;
+            // let blob = new Blob(value.data.data, {
+            //   type: "image/jpeg",
+            // });
+            // var reader = new FileReader();
+            // reader.readAsDataURL(blob);
+            // reader.onloadend = function () {
+            //   let base64String = reader.result;
+            // };
+            const buffer = Buffer.from(value.data.data, "base64");
+            // // const base64string = value.data.data.toString("base64");
+            // console.log(base64string);
             return (
               <div key={key}>
                 <div
@@ -66,6 +79,8 @@ const Profile = () => {
                   }}
                 >
                   <div>{value.id}</div>
+
+                  <img src={buffer} />
                 </div>
                 <button
                   onClick={() => {
@@ -84,9 +99,4 @@ const Profile = () => {
 };
 
 export default Profile;
-
-// <button
-// onClick={() => {
-//   navigate(`/post/CreatePost/${value.id}`);
-// }}
-// ></button>
+// <img src={`data:image/jpg;base64,${base64string}`} />
