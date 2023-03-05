@@ -1,3 +1,5 @@
+const Picture = require("./Picture");
+
 module.exports = (sequelize, DataTypes) => {
   const Posts = sequelize.define("Posts", {
     title: {
@@ -15,6 +17,9 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Posts.associate = (models) => {
+    Posts.belongsTo(models.Picture, {
+      onDelete: "cascade",
+    });
     Posts.hasMany(models.Comments, {
       onDelete: "cascade",
     });

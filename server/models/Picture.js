@@ -6,14 +6,10 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
 
-  //   Picture.associate = (models) => {
-  //     Picture.hasMany(models.Picture, {
-  //       onDelete: "cascade",
-  //     });
-  //   };
-
+  Picture.associate = (models) => {
+    Picture.belongsTo(models.Users, {
+      onDelete: "cascade",
+    });
+  };
   return Picture;
 };
-//   Picture.associate = (models) => {
-//     Picture.belongsTo(models.Post);
-//   };
