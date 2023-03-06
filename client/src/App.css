@@ -14,3 +14,8 @@ textarea {
 fieldset {
   border: 1px solid black;
 }
+.imgbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

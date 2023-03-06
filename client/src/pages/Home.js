@@ -30,7 +30,7 @@ const Home = () => {
                 navigate(`/post/${value.id}`);
               }}
             >
-              {<img src={buffer} />}
+              <div className="imgbox">{<img src={buffer} />}</div>
               {value.title}
             </div>
             <div>{value.postText}</div>
