@@ -77,7 +77,7 @@ const Profile = () => {
                   <img src={buffer} />
                 </div>
 
-                {authState.id == value.UserId && (
+                {authState.id === value.UserId && (
                   <button
                     onClick={() => {
                       handleDelete(value.id);

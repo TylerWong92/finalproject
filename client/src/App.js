@@ -10,6 +10,7 @@ import PageNotFound from "./pages/PageNotFound";
 import Registration from "./pages/Registration";
 import { AuthContext } from "./helpers/AuthContext";
 import { useState, useEffect } from "react";
+
 import axios from "axios";
 
 function App() {
@@ -49,6 +50,7 @@ function App() {
       id: 0,
       status: false,
     });
+    return <Link to="/">Home </Link>;
   };
 
   return (
