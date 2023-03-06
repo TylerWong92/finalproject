@@ -3,11 +3,28 @@ const express = require("express");
 // Use express router
 const router = express.Router();
 const { Posts } = require("../models");
+const { Picture } = require("../models");
 const { validateToken } = require("../middlewares/AuthMiddleware");
 
+// router.get("/", async (req, res) => {
+//   const listOfPosts = await Posts.findAll();
+
+//   res.json(listOfPosts);
+// });
 router.get("/", async (req, res) => {
   const listOfPosts = await Posts.findAll();
-  res.json(listOfPosts);
+
+  const posts = await Promise.all(
+    listOfPosts.map(async (post) => {
+      const picture = await Picture.findOne({
+        where: { id: post.PictureId },
+      });
+      post.dataValues.image = picture.data;
+      return post;
+    })
+  );
+  console.log(posts);
+  res.json(posts);
 });
 
 router.get("/byId/:id", async (req, res) => {
