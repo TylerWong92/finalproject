@@ -67,12 +67,16 @@ const Profile = () => {
 
             return (
               <div key={key}>
-                <div
-                  onClick={() => {
-                    navigate(`/CreatePost/${value.id}`);
-                  }}
-                >
-                  <div>{value.id}</div>
+                <div>
+                  {authState.id === value.UserId && (
+                    <button
+                      onClick={() => {
+                        navigate(`/CreatePost/${value.id}`);
+                      }}
+                    >
+                      {value.id + "click here to post this img"}
+                    </button>
+                  )}
 
                   <img src={buffer} />
                 </div>
@@ -86,9 +90,6 @@ const Profile = () => {
                     DELETE With Auth
                   </button>
                 )}
-
-                <div>{authState.id}</div>
-                <div>{value.UserId}</div>
               </div>
             );
           })}
