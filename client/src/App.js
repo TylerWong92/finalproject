@@ -50,7 +50,7 @@ function App() {
       id: 0,
       status: false,
     });
-    return <Link to="/">Home </Link>;
+    window.location.href = "/";
   };
 
   return (
