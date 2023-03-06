@@ -66,14 +66,30 @@ router.post("/store", validateToken, async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", validateToken, async (req, res) => {
   const PictureId = req.params.id;
-  await Picture.destroy({
-    where: {
-      id: PictureId,
-    },
-  });
+  try {
+    const picture = await Picture.destroy({
+      where: {
+        id: PictureId,
+      },
+    });
+
+    // picture.UserId = req.user.id;
+    res.json("successful");
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
 });
+//   console.log(req + "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+//   await Picture.destroy({
+//     where: {
+//       id: PictureId,
+//       UserId: req.user.id,
+//     },
+//   });
+// });
 
 module.exports = router;
 

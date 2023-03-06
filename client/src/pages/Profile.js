@@ -27,14 +27,18 @@ const Profile = () => {
 
   const handleDelete = async (data) => {
     console.log(data);
-    await axios.delete(`http://localhost:3001/image/${data}`);
-    // .then((response) => {
-    //   if (response.data.error) {
-    //     alert("User Not Login");
-    //   } else {
-    //     navigate("/");
-    //   }
-    // });
+    await axios
+      .delete(`http://localhost:3001/image/${data}`, {
+        headers: {
+          accessToken: localStorage.getItem("accessToken"),
+        },
+      })
+      .then((response) => {
+        console.log(authState);
+        if (response.data.error) {
+          alert("User Not Login");
+        }
+      });
   };
 
   return (
@@ -82,13 +86,19 @@ const Profile = () => {
 
                   <img src={buffer} />
                 </div>
-                <button
-                  onClick={() => {
-                    handleDelete(value.id);
-                  }}
-                >
-                  DELETE
-                </button>
+
+                {authState.id == value.UserId && (
+                  <button
+                    onClick={() => {
+                      handleDelete(value.id);
+                    }}
+                  >
+                    DELETE With Auth
+                  </button>
+                )}
+
+                <div>{authState.id}</div>
+                <div>{value.UserId}</div>
               </div>
             );
           })}
@@ -99,4 +109,3 @@ const Profile = () => {
 };
 
 export default Profile;
-// <img src={`data:image/jpg;base64,${base64string}`} />
