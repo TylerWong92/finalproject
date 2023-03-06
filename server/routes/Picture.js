@@ -42,6 +42,15 @@ router.get("/byuserId/:id", async (req, res) => {
   res.json(listOfImages);
 });
 
+// Generate Artwork from frontend from database only by PictureId
+router.get("/byImageId/:pictureid", async (req, res) => {
+  console.log(req.params);
+  const picture = req.params.pictureid;
+  const pictureObject = await Picture.findOne({ where: { id: picture } });
+  console.log(pictureObject);
+  res.json(pictureObject.dataValues.data);
+});
+
 // Generated Artwork from frontend store in database
 // router.post("/store", validateToken, async (req, res) => {
 //   const picture = req.body;
