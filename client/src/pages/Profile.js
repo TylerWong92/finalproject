@@ -63,18 +63,8 @@ const Profile = () => {
         <div>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</div>
         <div>
           {listOfImages.map((value, key) => {
-            // const displayImage = `data:image/png;base64,${value.data.data}`;
-            // let blob = new Blob(value.data.data, {
-            //   type: "image/jpeg",
-            // });
-            // var reader = new FileReader();
-            // reader.readAsDataURL(blob);
-            // reader.onloadend = function () {
-            //   let base64String = reader.result;
-            // };
             const buffer = Buffer.from(value.data.data, "base64");
-            // // const base64string = value.data.data.toString("base64");
-            // console.log(base64string);
+
             return (
               <div key={key}>
                 <div

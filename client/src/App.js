@@ -65,7 +65,7 @@ function App() {
               <Link to="/">Home </Link>
               <Link to="/createpost">create a post </Link>
               <Link to="/createimage">create a image </Link>
-              <Link to="/profile">your profile page </Link>
+              <Link to={`/profile/${authState.id}`}>your profile page</Link>
             </div>
           )}
           <h1>{authState.username}</h1>
