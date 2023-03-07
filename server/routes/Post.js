@@ -67,6 +67,25 @@ router.post("/", validateToken, async (req, res) => {
   res.json(post);
 });
 
+// Update Post
+router.put("/:id", validateToken, async (req, res) => {
+  const postId = req.params.id;
+  const newTitle = req.body.data.title;
+  const newPostText = req.body.data.postText;
+
+  console.log(postId);
+  console.log(newTitle);
+  console.log(newPostText);
+  // Find the post by ID
+  const post = await Posts.findByPk(postId);
+
+  // Update the post fields with the new values
+  post.title = newTitle;
+  post.postText = newPostText;
+  await post.save();
+
+  res.json(post);
+});
 router.delete("/:postId", validateToken, async (req, res) => {
   const postId = req.params.postId;
   await Posts.destroy({

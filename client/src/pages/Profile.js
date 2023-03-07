@@ -11,6 +11,9 @@ const Profile = () => {
   const [listOfPosts, setListOfPosts] = useState([]);
   const [listOfImages, setListOfImages] = useState([]);
   const { authState } = useContext(AuthContext);
+  const [newTitle, setNewTitle] = useState("");
+  const [newPostText, setNewPostText] = useState("");
+  const [postId, setPostId] = useState("");
 
   useEffect(() => {
     axios.get(`http://localhost:3001/auth/basicinfo/${id}`).then((response) => {
@@ -24,6 +27,46 @@ const Profile = () => {
     });
     // eslint-disable-next-line
   }, []);
+
+  // const handleUpdate = async (data) => {
+  //   data = { title: newTitle, postText: newPostText };
+  //   await axios
+  //     .put(
+  //   `http://localhost:3001/posts/${postId}`,
+  //   { data },
+  //   {
+  //     headers: {
+  //       accessToken: localStorage.getItem("accessToken"),
+  //     },
+  //   }
+  // )
+  // .then((response) => {
+  //   console.log(authState);
+  //   if (response.data.error) {
+  //     alert("User Not Login");
+  //   }
+  // });
+  // };
+
+  const handleUpdate = async (postId, newTitle, newPostText) => {
+    const data = { title: newTitle, postText: newPostText };
+    await axios
+      .put(
+        `http://localhost:3001/posts/${postId}`,
+        { data },
+        {
+          headers: {
+            accessToken: localStorage.getItem("accessToken"),
+          },
+        }
+      )
+      .then((response) => {
+        console.log(authState);
+        if (response.data.error) {
+          alert("User Not Login");
+        }
+      });
+  };
 
   const handleDelete = async (data) => {
     console.log(data);
@@ -49,19 +92,50 @@ const Profile = () => {
         {listOfPosts.map((value, key) => {
           const buffer = Buffer.from(value.image, "base64");
           return (
-            <div
-              key={key}
-              onClick={() => {
-                navigate(`/post/${value.id}`);
-              }}
-            >
-              <div>{value.title}</div>
+            <div key={key}>
+              <div
+                onClick={() => {
+                  console.log(value.id);
+                  setPostId(value.id);
+                }}
+              >
+                {value.title}
+              </div>
               <div>{value.postText}</div>
               <div>{value.username}</div>
-              <div className="imgbox">{<img src={buffer} />}</div>
+              <div
+                onClick={() => {
+                  navigate(`/post/${value.id}`);
+                }}
+                className="imgbox"
+              >
+                {<img src={buffer} />}
+              </div>
             </div>
           );
         })}
+        <form>
+          <input
+            type="text"
+            onChange={(event) => {
+              setNewTitle(event.target.value);
+            }}
+          />
+          <input
+            type="text"
+            onChange={(event) => {
+              setNewPostText(event.target.value);
+            }}
+          />
+          <button
+            type="submit"
+            onClick={() => {
+              handleUpdate(postId, newTitle, newPostText);
+            }}
+          >
+            Updated
+          </button>
+        </form>
         <div>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</div>
         <div>
           {listOfImages.map((value, key) => {
