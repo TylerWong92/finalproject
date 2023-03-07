@@ -11,10 +11,16 @@ const { sign } = require("jsonwebtoken");
 
 router.post("/", async (req, res) => {
   const { username, password } = req.body;
-  bcrypt.hash(password, 10).then((hash) => {
-    Users.create({ username: username, password: hash });
+  // Check in my user list if username is not taken
+  const checkUserName = await Users.findOne({ where: { username: username } });
+
+  if (!checkUserName) {
+    const hash = await bcrypt.hash(password, 10);
+    await Users.create({ username: username, password: hash });
     res.json("User Created");
-  });
+  } else {
+    res.json("Username Taken");
+  }
 });
 
 router.post("/login", async (req, res) => {
