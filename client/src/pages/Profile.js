@@ -19,7 +19,7 @@ const Profile = () => {
     axios.get(`http://localhost:3001/posts/byuserId/${id}`).then((response) => {
       setListOfPosts(response.data);
     });
-    axios.get(`http://localhost:3001/image/byuserId/${id}`).then((response) => {
+    axios.get(`http://localhost:3001/image/gallery/${id}`).then((response) => {
       setListOfImages(response.data);
     });
     // eslint-disable-next-line

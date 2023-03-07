@@ -4,7 +4,9 @@ const router = express.Router();
 const { validateToken } = require("../middlewares/AuthMiddleware");
 const { Configuration, OpenAIApi } = require("openai");
 const { Picture } = require("../models");
+const { Posts } = require("../models");
 const { Buffer } = require("buffer");
+const { Op } = require("sequelize");
 
 //Import My OPEN-AI key
 require("dotenv").config();
@@ -51,15 +53,23 @@ router.get("/byImageId/:pictureid", async (req, res) => {
   res.json(pictureObject.dataValues.data);
 });
 
-// Generated Artwork from frontend store in database
-// router.post("/store", validateToken, async (req, res) => {
-//   const picture = req.body;
-//   //Add new fill in req.body username using validateToken
-//   picture.username = req.user.username;
-//   picture.UserId = req.user.id;
-//   await Posts.create(picture);
-//   res.json(picture);
-// });
+// Generate Artwork that is not posted in postPage
+router.get("/gallery/:id", async (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  const listOfPost = await Posts.findAll({ where: { UserId: id } });
+  // Extract an array of PictureID from the list of posts
+  const listOfPictureId = listOfPost.map((post) => {
+    return post.PictureId;
+  });
+  // Only listOfPostId is currently not Posted and Belong to userId
+  const listOfImages = await Picture.findAll({
+    where: { id: { [Op.notIn]: listOfPictureId }, UserId: id },
+  });
+
+  res.json(listOfImages);
+});
+
 router.post("/store", validateToken, async (req, res) => {
   // const buffer = Buffer.from(req.body.imageData, "base64");
   try {
@@ -91,14 +101,6 @@ router.delete("/:id", validateToken, async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 });
-//   console.log(req + "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-//   await Picture.destroy({
-//     where: {
-//       id: PictureId,
-//       UserId: req.user.id,
-//     },
-//   });
-// });
 
 module.exports = router;
 
