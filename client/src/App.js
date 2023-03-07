@@ -10,6 +10,7 @@ import PageNotFound from "./pages/PageNotFound";
 import Registration from "./pages/Registration";
 import { AuthContext } from "./helpers/AuthContext";
 import { useState, useEffect } from "react";
+import TestPage from "./pages/Testpage";
 
 import axios from "axios";
 
@@ -68,6 +69,7 @@ function App() {
               <Link to="/createpost">create a post </Link>
               <Link to="/createimage">create a image </Link>
               <Link to={`/profile/${authState.id}`}>your profile page</Link>
+              <Link to="/testpage">create a post </Link>
             </div>
           )}
           <h1>{authState.username}</h1>
@@ -80,6 +82,7 @@ function App() {
             <Route path="/registration" element={<Registration />} />
             <Route path="/login" element={<Login />} />
             <Route path="/profile/:id" element={<Profile />} />
+            <Route path="/testpage" element={<TestPage />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </Router>
