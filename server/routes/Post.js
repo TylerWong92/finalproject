@@ -39,6 +39,24 @@ router.get("/byuserId/:id", async (req, res) => {
   res.json(listOfPosts);
 });
 
+//Generate Artwork that is posted in postPage
+router.get("/gallery/:id", async (req, res) => {
+  const id = req.params.id;
+  const listOfPosts = await Posts.findAll({ where: { UserId: id } });
+
+  const posts = await Promise.all(
+    listOfPosts.map(async (post) => {
+      const picture = await Picture.findOne({
+        where: { id: post.PictureId },
+      });
+      post.dataValues.image = picture.data;
+      return post;
+    })
+  );
+
+  res.json(posts);
+});
+
 router.post("/", validateToken, async (req, res) => {
   const post = req.body;
   //Add new fill in req.body username using validateToken

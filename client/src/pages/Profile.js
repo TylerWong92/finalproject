@@ -16,7 +16,7 @@ const Profile = () => {
     axios.get(`http://localhost:3001/auth/basicinfo/${id}`).then((response) => {
       setUsername(response.data.username);
     });
-    axios.get(`http://localhost:3001/posts/byuserId/${id}`).then((response) => {
+    axios.get(`http://localhost:3001/posts/gallery/${id}`).then((response) => {
       setListOfPosts(response.data);
     });
     axios.get(`http://localhost:3001/image/gallery/${id}`).then((response) => {
@@ -47,6 +47,7 @@ const Profile = () => {
       <h1>username : {username}</h1>
       <div>
         {listOfPosts.map((value, key) => {
+          const buffer = Buffer.from(value.image, "base64");
           return (
             <div
               key={key}
@@ -57,6 +58,7 @@ const Profile = () => {
               <div>{value.title}</div>
               <div>{value.postText}</div>
               <div>{value.username}</div>
+              <div className="imgbox">{<img src={buffer} />}</div>
             </div>
           );
         })}
