@@ -26,20 +26,34 @@ router.post("/", async (req, res) => {
 // User login
 router.post("/login", async (req, res) => {
   const { username, password } = req.body;
-  const user = await Users.findOne({ where: { username: username } });
 
-  if (!user) res.json({ error: "Username or Password invalid" });
-  return;
-
-  bcrypt.compare(password, user.password).then((match) => {
-    if (!match) res.json({ error: "Username or Password invalid" });
+  // Empty User
+  if (!username) {
+    res.json({ error: "Username is required" });
     return;
-
-    const accessToken = sign(
-      { username: user.username, id: user.id },
-      "importantsecret"
-    );
-    res.json({ token: accessToken, username: username, id: user.id });
+  }
+  // Empty Pass
+  if (!password) {
+    res.json({ error: "Password is required" });
+    return;
+  }
+  // User not register
+  const user = await Users.findOne({ where: { username: username } });
+  if (!user) {
+    res.json({ error: "Wrong username or password combination!" });
+    return;
+  }
+  // Check Hash pass and provide Token
+  bcrypt.compare(password, user.password).then((match) => {
+    if (match) {
+      const accessToken = sign(
+        { username: user.username, id: user.id },
+        "importantsecret"
+      );
+      res.json({ token: accessToken, username: user.username, id: user.id });
+    } else {
+      res.json({ error: "Wrong username or password combination!" });
+    }
   });
 });
 
