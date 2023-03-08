@@ -1,31 +1,54 @@
-import { Container } from "postcss";
 import React from "react";
-
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 const TestPage = () => {
   return (
-    <section className="h-screen w-screen bg-gradient-to-r from-slate-700 to-slate-800">
-      <div className="flex items-center justify-center h-full">
-        <fieldset>
-          <label className="label">
-            <span className="label-text">Login</span>
-            <span className="label-text-alt">not a member yet?</span>
+    <div className="navbar bg-base-100 px-32">
+      <div className="navbar-start">
+        <div className="dropdown">
+          <label tabIndex={0} className="btn btn-ghost btn-circle">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 6h16M4 12h16M4 18h7"
+              />
+            </svg>
           </label>
-          <input
-            type="text"
-            placeholder="Username"
-            className="input input-bordered input-ghost w-full max-w mb-4"
-          />
-
-          <input
-            type="text"
-            placeholder="Password"
-            className="input input-bordered input-ghost w-full max-w mb-4"
-          />
-
-          <button className="btn btn-block btn-outline">Login</button>
-        </fieldset>
+          <ul
+            tabIndex={0}
+            className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+          >
+            <li>
+              <a>Homepage</a>
+            </li>
+            <li>
+              <a>Portfolio</a>
+            </li>
+            <li>
+              <a>About</a>
+            </li>
+          </ul>
+        </div>
       </div>
-    </section>
+      <div className="navbar-center">
+        <a className="btn btn-ghost normal-case text-xl">daisyUI</a>
+      </div>
+      <div className="navbar-end">
+        <div>
+          <Link to="/registration">Not a member yet?</Link>
+          <button className="btn">
+            <Link to="/login">Login</Link>
+          </button>
+        </div>
+      </div>
+    </div>
   );
 };
 

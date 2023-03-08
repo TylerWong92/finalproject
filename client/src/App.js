@@ -11,6 +11,7 @@ import Registration from "./pages/Registration";
 import { AuthContext } from "./helpers/AuthContext";
 import { useState, useEffect } from "react";
 import TestPage from "./pages/Testpage";
+import Navbar from "./components/Navbar";
 
 import axios from "axios";
 
@@ -58,24 +59,8 @@ function App() {
     <div className="App">
       <AuthContext.Provider value={{ authState, setAuthState }}>
         <Router>
-          {!authState.status ? (
-            <div>
-              <Link to="/registration">Not a member yet?</Link>
-              <button className="btn">
-                <Link to="/login">Login</Link>
-              </button>
-            </div>
-          ) : (
-            <div>
-              <Link to="/">Home </Link>
-              <Link to="/createpost">create a post </Link>
-              <Link to="/createimage">create a image </Link>
-              <Link to={`/profile/${authState.id}`}>your profile page</Link>
-              <Link to="/testpage">create a post </Link>
-            </div>
-          )}
-          <h1>{authState.username}</h1>
-          {authState.status && <button onClick={logout}>logout!</button>}
+          <Navbar authState={authState} logout={logout} />
+
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/createpost/:imageId" element={<CreatePost />} />
@@ -94,3 +79,24 @@ function App() {
 }
 
 export default App;
+
+// <section>
+//             {!authState.status ? (
+//               <div>
+//                 <Link to="/registration">Not a member yet?</Link>
+//                 <button className="btn">
+//                   <Link to="/login">Login</Link>
+//                 </button>
+//               </div>
+//             ) : (
+//               <div>
+//                 <Link to="/">Home </Link>
+//                 <Link to="/createpost">create a post </Link>
+//                 <Link to="/createimage">create a image </Link>
+//                 <Link to={`/profile/${authState.id}`}>your profile page</Link>
+//                 <Link to="/testpage">create a post </Link>
+//               </div>
+//             )}
+//             <h1>{authState.username}</h1>
+//             {authState.status && <button onClick={logout}>logout!</button>}
+//           </section>
