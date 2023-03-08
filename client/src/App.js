@@ -60,8 +60,10 @@ function App() {
         <Router>
           {!authState.status ? (
             <div>
-              <Link to="/login">login </Link>
-              <Link to="/registration">registrations </Link>
+              <Link to="/registration">Not a member yet?</Link>
+              <button className="btn">
+                <Link to="/login">Login</Link>
+              </button>
             </div>
           ) : (
             <div>

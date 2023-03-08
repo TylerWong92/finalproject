@@ -20,23 +20,41 @@ const Registration = () => {
   };
 
   return (
-    <div>
-      Registration Page
-      <Formik
-        initialValues={initialValues}
-        onSubmit={onSubmit}
-        validationSchema={validationSchema}
-      >
-        <Form>
-          <legend>Username:</legend>
-          <ErrorMessage name="username" component="span" />
-          <Field name="username" placeholder="(Ex.john)" />
-          <legend>Password:</legend>
-          <ErrorMessage name="password" component="span" />
-          <Field type="password" name="password" placeholder="(Ex.1234)" />
-          <button type="submit">Register Now!</button>
-        </Form>
-      </Formik>
+    <div className="flex items-center justify-center h-full">
+      <fieldset>
+        <Formik
+          initialValues={initialValues}
+          onSubmit={onSubmit}
+          validationSchema={validationSchema}
+        >
+          <Form>
+            <React.Fragment>
+              <label className="label">
+                <span className="label-text">Register</span>
+                <span className="label-text-alt">Login as a member!</span>
+              </label>
+
+              <ErrorMessage name="username" component="span" />
+              <Field
+                className="input input-bordered input-ghost w-full max-w mb-4"
+                name="username"
+                placeholder="Username(Ex.john)"
+              />
+            </React.Fragment>
+
+            <ErrorMessage name="password" component="span" />
+            <Field
+              className="input input-bordered input-ghost w-full max-w mb-4"
+              type="password"
+              name="password"
+              placeholder="Password (More than 4 letter)"
+            />
+            <button className="btn btn-block btn-outline" type="submit">
+              Register Now!
+            </button>
+          </Form>
+        </Formik>
+      </fieldset>
     </div>
   );
 };
