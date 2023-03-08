@@ -1,43 +1,32 @@
+import { Container } from "postcss";
 import React from "react";
 
 const TestPage = () => {
   return (
-    <fieldset>
-      <div className="bg-gray-600 inline-block rounded-2xl p-4">
-        <div className="form-control w-full max-w-xs">
+    <section className="h-screen w-screen bg-gradient-to-r from-slate-700 to-slate-800">
+      <div className="flex items-center justify-center h-full">
+        <fieldset>
           <label className="label">
-            <span className="label-text">Username</span>
-          </label>
-
-          <input
-            type="text"
-            placeholder="Type here"
-            className="input input-bordered w-full max-w-xs"
-          />
-
-          <label className="label">
-            <span className="label-text">Password</span>
+            <span className="label-text">Login</span>
+            <span className="label-text-alt">not a member yet?</span>
           </label>
           <input
             type="text"
-            placeholder="Type here"
-            className="input input-bordered w-full max-w-xs"
+            placeholder="Username"
+            className="input input-bordered input-ghost w-full max-w mb-4"
           />
-          <label className="label">
-            <span className="label-text-alt">Bottom Left label</span>
-            <span className="label-text-alt">Bottom Right label</span>
-          </label>
-          <button className="btn btn-block">block</button>
-        </div>
+
+          <input
+            type="text"
+            placeholder="Password"
+            className="input input-bordered input-ghost w-full max-w mb-4"
+          />
+
+          <button className="btn btn-block btn-outline">Login</button>
+        </fieldset>
       </div>
-    </fieldset>
+    </section>
   );
 };
 
 export default TestPage;
-
-// <span className="label-text-alt">Top Right label</span>
-// <label className="label">
-// <span className="label-text-alt">Bottom Left label</span>
-// <span className="label-text-alt">Bottom Right label</span>
-// </label>

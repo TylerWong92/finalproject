@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../helpers/AuthContext";
+import LoginForm from "../components/LoginForm";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -24,21 +25,15 @@ const Login = () => {
     });
   };
   return (
-    <div>
-      Login Page
-      <input
-        type="text"
-        onChange={(event) => {
-          setUsername(event.target.value);
-        }}
+    <div className="h-screen w-screen">
+      <LoginForm
+        title="Login"
+        username={username}
+        setUsername={setUsername}
+        password={password}
+        setPassword={setPassword}
+        onLogin={login}
       />
-      <input
-        type="password"
-        onChange={(event) => {
-          setPassword(event.target.value);
-        }}
-      />
-      <button onClick={login}>Login</button>
     </div>
   );
 };
