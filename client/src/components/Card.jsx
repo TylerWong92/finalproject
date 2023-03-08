@@ -8,17 +8,19 @@ const Card = ({ post }) => {
   const buffer = Buffer.from(post.image, "base64");
 
   return (
-    <div className="card w-96 bg-base-100 shadow-xl gap-4 py-4">
-      <figure>
-        <img
-          onClick={() => {
-            navigate(`/post/${post.id}`);
-          }}
-          className="w-full"
-          src={buffer}
-          alt={post.title}
-        />
-      </figure>
+    <div>
+      <div className="card card-compact w-64 bg-base-100 shadow-xl">
+        <figure>
+          <img
+            onClick={() => {
+              navigate(`/post/${post.id}`);
+            }}
+            className="w-full"
+            src={buffer}
+            alt={post.title}
+          />
+        </figure>
+      </div>
       <div className="card-body">
         <h2
           onClick={() => {
@@ -30,7 +32,7 @@ const Card = ({ post }) => {
           <div className="badge badge-secondary">NEW</div>
         </h2>
         <p>{post.postText}</p>
-        <div className="card-actions justify-end">
+        <div className="card-actions justify-start">
           <div className="badge">
             <Link to={`/profile/${post.UserId}`}>{post.username}</Link>
           </div>
