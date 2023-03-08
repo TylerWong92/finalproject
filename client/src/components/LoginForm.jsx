@@ -24,7 +24,7 @@ const LoginForm = ({
         />
 
         <input
-          type="text"
+          type="password"
           placeholder="Password"
           className="input input-bordered input-ghost w-full max-w mb-4"
           value={password}

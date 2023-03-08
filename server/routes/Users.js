@@ -29,9 +29,11 @@ router.post("/login", async (req, res) => {
   const user = await Users.findOne({ where: { username: username } });
 
   if (!user) res.json({ error: "Username or Password invalid" });
+  return;
 
   bcrypt.compare(password, user.password).then((match) => {
     if (!match) res.json({ error: "Username or Password invalid" });
+    return;
 
     const accessToken = sign(
       { username: user.username, id: user.id },

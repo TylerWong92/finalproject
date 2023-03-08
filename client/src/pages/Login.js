@@ -15,6 +15,7 @@ const Login = () => {
     axios.post("http://localhost:3001/auth/login", data).then((response) => {
       if (response.data.error) {
         alert(response.data.error);
+        return;
       } else localStorage.setItem("accessToken", response.data.token);
       setAuthState({
         username: response.data.username,
