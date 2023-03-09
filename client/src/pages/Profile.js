@@ -43,6 +43,8 @@ const Profile = () => {
       )
       .then((response) => {
         console.log(authState);
+        window.location.reload();
+
         if (response.data.error) {
           alert("User Not Login");
         }
@@ -59,6 +61,7 @@ const Profile = () => {
       })
       .then((response) => {
         console.log(authState);
+        window.location.reload();
         if (response.data.error) {
           alert("User Not Login");
         }
@@ -98,28 +101,51 @@ const Profile = () => {
               <div>{value.username}</div>
               <div>
                 {authState.id === value.UserId && (
-                  <form>
-                    <input
-                      type="text"
-                      onChange={(event) => {
-                        setNewTitle(event.target.value);
-                      }}
-                    />
-                    <input
-                      type="text"
-                      onChange={(event) => {
-                        setNewPostText(event.target.value);
-                      }}
-                    />
-                    <button
-                      type="submit"
+                  <div>
+                    <label
+                      htmlFor="my-modal"
+                      className="btn"
                       onClick={() => {
-                        handleUpdate(postId, newTitle, newPostText);
+                        console.log(value.id);
+                        setPostId(value.id);
                       }}
                     >
-                      Updated
-                    </button>
-                  </form>
+                      open modal
+                    </label>
+                    <input
+                      type="checkbox"
+                      id="my-modal"
+                      className="modal-toggle"
+                    />
+                    <div className="modal">
+                      <div className="modal-box">
+                        <input
+                          type="text"
+                          onChange={(event) => {
+                            setNewTitle(event.target.value);
+                          }}
+                        />
+                        <input
+                          type="text"
+                          onChange={(event) => {
+                            setNewPostText(event.target.value);
+                          }}
+                        />
+                        <div className="modal-action">
+                          <label
+                            htmlFor="my-modal"
+                            className="btn"
+                            type="submit"
+                            onClick={() => {
+                              handleUpdate(postId, newTitle, newPostText);
+                            }}
+                          >
+                            Yay!
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 )}
               </div>
             </div>
@@ -168,3 +194,26 @@ const Profile = () => {
 };
 
 export default Profile;
+
+// <form>
+//   <input
+//     type="text"
+//     onChange={(event) => {
+//       setNewTitle(event.target.value);
+//     }}
+//   />
+//   <input
+//     type="text"
+//     onChange={(event) => {
+//       setNewPostText(event.target.value);
+//     }}
+//   />
+//   <button
+//     type="submit"
+//     onClick={() => {
+//       handleUpdate(postId, newTitle, newPostText);
+//     }}
+//   >
+//     Updated
+//   </button>
+// </form>;

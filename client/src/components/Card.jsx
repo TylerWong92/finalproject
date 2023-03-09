@@ -10,16 +10,14 @@ const Card = ({ post }) => {
   return (
     <div>
       <div className="card card-compact w-96 bg-base-100 shadow-xl">
-        <figure>
-          <img
-            onClick={() => {
-              navigate(`/post/${post.id}`);
-            }}
-            className="w-full"
-            src={buffer}
-            alt={post.title}
-          />
-        </figure>
+        <img
+          onClick={() => {
+            navigate(`/post/${post.id}`);
+          }}
+          className="w-full"
+          src={buffer}
+          alt={post.title}
+        />
       </div>
       <div className="card-body">
         <h2
@@ -29,7 +27,6 @@ const Card = ({ post }) => {
           className="card-title"
         >
           {post.title}
-          <div className="badge badge-secondary">NEW</div>
         </h2>
         <p>{post.postText}</p>
         <div className="card-actions justify-start">
