@@ -27,7 +27,7 @@ const Registration = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-full  w-screen">
+    <div className="flex items-center justify-center h-full ">
       <fieldset>
         <Formik
           initialValues={initialValues}

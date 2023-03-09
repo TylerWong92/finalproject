@@ -38,24 +38,36 @@ const CreatePost = () => {
   };
 
   return (
-    <div>
-      <h1>create post</h1>
-      <Formik
-        initialValues={initialValues}
-        onSubmit={onSubmit}
-        validationSchema={validationSchema}
-      >
-        <Form>
-          <legend>Title:</legend>
-          <ErrorMessage name="title" component="span" />
-          <Field id="inputCreatePost" name="title" placeholder="(Ex.Title)" />
-          <legend>Post:</legend>
-          <ErrorMessage name="postText" component="span" />
-          <Field id="inputCreatePost" name="postText" placeholder="(Ex.Post)" />
+    <div className="flex flex-wrap justify-center gap-4 p-32">
+      <div className="flex items-center justify-center h-full ">
+        <Formik
+          initialValues={initialValues}
+          onSubmit={onSubmit}
+          validationSchema={validationSchema}
+        >
+          <Form>
+            <ErrorMessage name="title" component="span" />
+            <Field
+              className="input input-bordered input-ghost w-full max-w mb-4"
+              id="inputCreatePost"
+              name="title"
+              placeholder="Title"
+            />
 
-          <button type="submit"> Create Post </button>
-        </Form>
-      </Formik>
+            <ErrorMessage name="postText" component="span" />
+            <Field
+              className="input input-bordered input-ghost w-full max-w mb-4"
+              id="inputCreatePost"
+              name="postText"
+              placeholder="(Ex.Post)"
+            />
+
+            <button className="btn btn-block btn-outline" type="submit">
+              Create Post
+            </button>
+          </Form>
+        </Formik>
+      </div>
     </div>
   );
 };
