@@ -6,13 +6,9 @@ const { Posts } = require("../models");
 const { Picture } = require("../models");
 const { validateToken } = require("../middlewares/AuthMiddleware");
 
-// router.get("/", async (req, res) => {
-//   const listOfPosts = await Posts.findAll();
-
-//   res.json(listOfPosts);
-// });
+// Get all Post latest first
 router.get("/", async (req, res) => {
-  const listOfPosts = await Posts.findAll();
+  const listOfPosts = await Posts.findAll({ order: [["createdAt", "DESC"]] });
 
   const posts = await Promise.all(
     listOfPosts.map(async (post) => {
