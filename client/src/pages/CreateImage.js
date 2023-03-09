@@ -1,22 +1,17 @@
 import React, { useState } from "react";
 import axios from "axios";
-import ArtStyle from "../components/ArtStyle";
+
+import img from "../assets/image1.jpg";
+import img2 from "../assets/image2.jpg";
+import img3 from "../assets/image3.jpg";
+import img4 from "../assets/image4.jpg";
 
 const CreateImage = () => {
   const [prompt, setPrompt] = useState("");
   const [imageData, setImageData] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
 
-  function handleImageClick(description) {
+  const handleImageClick = (description) => {
     setPrompt(description);
-  }
-
-  const handleLoading = () => {
-    setIsLoading(true);
-    // Perform action that takes some time
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000); // Set isLoading to false after 2 seconds
   };
 
   const handleSubmit = async (event) => {
@@ -47,23 +42,27 @@ const CreateImage = () => {
   const imageOptions = [
     {
       id: 1,
-      image: "/images/image1.png",
-      description: "Description for image 1",
+      image: img,
+      description:
+        "in the style of digital Illustration of the a purely mechanical, 4k, detailed, fantasy vivid colors",
     },
     {
       id: 2,
-      image: "/images/image2.png",
-      description: "Description for image 2",
+      image: img2,
+      description:
+        "in the style of intricate artwork by Beatrix Potter | cottagecore aesthetic | 8K | highly detailed | wide angle |",
     },
     {
       id: 3,
-      image: "/images/image3.png",
-      description: "Description for image 3",
+      image: img3,
+      description:
+        "in the style of botticellis simonetta vespucci young portrait photography hyperrealistic modern dressed, futuristic",
     },
     {
       id: 4,
-      image: "/images/image4.png",
-      description: "Description for image 4",
+      image: img4,
+      description:
+        "in the style of galaxies, spirals, space, nebulae, stars, smoke, iridescent, intricate detail, in the shape of a rabbit, octane render, 8k, uplight",
     },
   ];
 
@@ -75,32 +74,9 @@ const CreateImage = () => {
             <form onSubmit={handleSubmit}>
               <div className="text-center lg:text-left p-6">
                 <h1 className="text-4xl font-bold mb-4">Enter a prompt:</h1>
-
-                <p className="py-6">Pick a style</p>
-                {imageOptions.map((option) => (
-                  <div
-                    key={option.id}
-                    style={{
-                      width: "200px",
-                      height: "200px",
-                      margin: "10px",
-                      cursor: "pointer",
-                    }}
-                    onClick={() => handleImageClick(option.description)}
-                  >
-                    <img
-                      src={option.image}
-                      style={{
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                      }}
-                    />
-                  </div>
-                ))}
                 <form>
                   <textarea
-                    className=" input input-bordered input-ghost w-full max-w mb-4 "
+                    className=" input input-bordered input-ghost w-full max-w mt-4 pt-2"
                     value={prompt || ""}
                     onChange={(event) => setPrompt(event.target.value)}
                     placeholder="Enter your text here"
@@ -112,6 +88,17 @@ const CreateImage = () => {
                     }}
                   />
                 </form>
+
+                <p className="py-2">Pick a style</p>
+                {imageOptions.map((option) => (
+                  <div
+                    key={option.id}
+                    className="flex-grow w-1/4 float-right rounded-box mb-3"
+                    onClick={() => handleImageClick(option.description)}
+                  >
+                    <img src={option.image} className="p-2 rounded-box" />
+                  </div>
+                ))}
               </div>
 
               <div className="p-6 self-end">
