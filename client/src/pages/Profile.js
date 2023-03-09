@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../helpers/AuthContext";
+import Card from "../components/Card";
 const { Buffer } = require("buffer");
 
 const Profile = () => {
@@ -27,26 +28,6 @@ const Profile = () => {
     });
     // eslint-disable-next-line
   }, []);
-
-  // const handleUpdate = async (data) => {
-  //   data = { title: newTitle, postText: newPostText };
-  //   await axios
-  //     .put(
-  //   `http://localhost:3001/posts/${postId}`,
-  //   { data },
-  //   {
-  //     headers: {
-  //       accessToken: localStorage.getItem("accessToken"),
-  //     },
-  //   }
-  // )
-  // .then((response) => {
-  //   console.log(authState);
-  //   if (response.data.error) {
-  //     alert("User Not Login");
-  //   }
-  // });
-  // };
 
   const handleUpdate = async (postId, newTitle, newPostText) => {
     const data = { title: newTitle, postText: newPostText };
@@ -88,17 +69,21 @@ const Profile = () => {
     <div>
       profile page
       <h1>username : {username}</h1>
-      <div>
+      <div className="flex flex-wrap justify-center gap-4 p-32">
         {listOfPosts.map((value, key) => {
           const buffer = Buffer.from(value.image, "base64");
           return (
-            <div key={key}>
+            <div
+              className="card card-compact w-96 bg-base-100 shadow-xl"
+              key={key}
+            >
               <div
                 onClick={() => {
                   console.log(value.id);
                   setPostId(value.id);
                 }}
               >
+                {<img className="w-full" src={buffer} />}
                 {value.title}
               </div>
               <div>{value.postText}</div>
@@ -109,61 +94,67 @@ const Profile = () => {
                 }}
                 className="imgbox"
               >
-                {<img src={buffer} />}
+                {authState.id === value.UserId && (
+                  <form>
+                    <input
+                      type="text"
+                      onChange={(event) => {
+                        setNewTitle(event.target.value);
+                      }}
+                    />
+                    <input
+                      type="text"
+                      onChange={(event) => {
+                        setNewPostText(event.target.value);
+                      }}
+                    />
+                    <button
+                      type="submit"
+                      onClick={() => {
+                        handleUpdate(postId, newTitle, newPostText);
+                      }}
+                    >
+                      Updated
+                    </button>
+                  </form>
+                )}
               </div>
             </div>
           );
         })}
-        <form>
-          <input
-            type="text"
-            onChange={(event) => {
-              setNewTitle(event.target.value);
-            }}
-          />
-          <input
-            type="text"
-            onChange={(event) => {
-              setNewPostText(event.target.value);
-            }}
-          />
-          <button
-            type="submit"
-            onClick={() => {
-              handleUpdate(postId, newTitle, newPostText);
-            }}
-          >
-            Updated
-          </button>
-        </form>
+
         <div>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</div>
-        <div>
+        <div className="flex flex-wrap justify-center gap-4 p-32">
           {listOfImages.map((value, key) => {
             const buffer = Buffer.from(value.data.data, "base64");
 
             return (
-              <div key={key}>
+              <div
+                className="card card-compact w-96 bg-base-100 shadow-xl"
+                key={key}
+              >
                 <div>
-                  {authState.id === value.UserId && (
-                    <button
-                      onClick={() => {
-                        navigate(`/CreatePost/${value.id}`);
-                      }}
-                    >
-                      {value.id + "click here to post this img"}
-                    </button>
-                  )}
-
-                  <img src={buffer} />
+                  <img className="w-full" src={buffer} />
                 </div>
+                {authState.id === value.UserId && (
+                  <button
+                    className="btn"
+                    onClick={() => {
+                      navigate(`/CreatePost/${value.id}`);
+                    }}
+                  >
+                    Post
+                  </button>
+                )}
 
                 {authState.id === value.UserId && (
                   <button
+                    className="btn"
                     onClick={() => {
                       handleDelete(value.id);
                     }}
                   >
-                    DELETE With Auth
+                    Delete
                   </button>
                 )}
               </div>
@@ -176,3 +167,29 @@ const Profile = () => {
 };
 
 export default Profile;
+// {
+//   authState.id === value.UserId && (
+//     <form>
+//       <input
+//         type="text"
+//         onChange={(event) => {
+//           setNewTitle(event.target.value);
+//         }}
+//       />
+//       <input
+//         type="text"
+//         onChange={(event) => {
+//           setNewPostText(event.target.value);
+//         }}
+//       />
+//       <button
+//         type="submit"
+//         onClick={() => {
+//           handleUpdate(postId, newTitle, newPostText);
+//         }}
+//       >
+//         Updated
+//       </button>
+//     </form>
+//   );
+// }

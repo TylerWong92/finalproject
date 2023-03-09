@@ -16,26 +16,6 @@ const Post = () => {
   let navigate = useNavigate();
 
   // Get Single Post by Id and also fetch their users comments.
-  // useEffect(() => {
-  //   let pictureid;
-  //   axios.get(`http://localhost:3001/posts/byId/${id}`).then((response) => {
-  //     setPostObject(response.data);
-  //     pictureid = response.data.PictureId;
-  //   });
-
-  //   axios.get(`http://localhost:3001/comments/${id}`).then((response) => {
-  //     setComments(response.data);
-  //   });
-
-  //   console.log(pictureid);
-  //   axios
-  //     .get(`http://localhost:3001/image/byImageId/${10}`)
-  //     .then((response) => {
-  //       const buffer = Buffer.from(response.data, "base64");
-  //       setPicture(buffer);
-  //     });
-  //   // eslint-disable-next-line
-  // }, []);
   useEffect(() => {
     const fetchData = async () => {
       try {

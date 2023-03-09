@@ -14,7 +14,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="flex flex-wrap justify-center gap-4">
+    <div className="flex flex-wrap justify-center gap-4 p-32">
       {listOfPosts.map((post, index) => (
         <Card key={index} post={post} />
       ))}
