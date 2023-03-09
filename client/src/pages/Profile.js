@@ -69,9 +69,8 @@ const Profile = () => {
   };
 
   return (
-    <div>
-      profile page
-      <h1>username : {username}</h1>
+    <React.Fragment>
+      <h1 className="text-3xl text-center">{username}:Posts</h1>
       <div className="flex flex-wrap justify-center gap-4 p-32">
         {listOfPosts.map((value, key) => {
           const buffer = Buffer.from(value.image, "base64");
@@ -110,7 +109,7 @@ const Profile = () => {
                         setPostId(value.id);
                       }}
                     >
-                      open modal
+                      Edit Post
                     </label>
                     <input
                       type="checkbox"
@@ -120,13 +119,17 @@ const Profile = () => {
                     <div className="modal">
                       <div className="modal-box">
                         <input
+                          className="input input-bordered input-ghost w-full max-w mb-4"
                           type="text"
+                          placeholder="Title"
                           onChange={(event) => {
                             setNewTitle(event.target.value);
                           }}
                         />
                         <input
+                          className="input input-bordered input-ghost w-full max-w mb-4"
                           type="text"
+                          placeholder="Description"
                           onChange={(event) => {
                             setNewPostText(event.target.value);
                           }}
@@ -140,7 +143,7 @@ const Profile = () => {
                               handleUpdate(postId, newTitle, newPostText);
                             }}
                           >
-                            Yay!
+                            Update!
                           </label>
                         </div>
                       </div>
@@ -189,31 +192,8 @@ const Profile = () => {
           })}
         </div>
       </div>
-    </div>
+    </React.Fragment>
   );
 };
 
 export default Profile;
-
-// <form>
-//   <input
-//     type="text"
-//     onChange={(event) => {
-//       setNewTitle(event.target.value);
-//     }}
-//   />
-//   <input
-//     type="text"
-//     onChange={(event) => {
-//       setNewPostText(event.target.value);
-//     }}
-//   />
-//   <button
-//     type="submit"
-//     onClick={() => {
-//       handleUpdate(postId, newTitle, newPostText);
-//     }}
-//   >
-//     Updated
-//   </button>
-// </form>;
