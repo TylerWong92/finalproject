@@ -83,17 +83,20 @@ const Profile = () => {
                   setPostId(value.id);
                 }}
               >
-                {<img className="w-full" src={buffer} />}
+                {
+                  <img
+                    onClick={() => {
+                      navigate(`/post/${value.id}`);
+                    }}
+                    className="w-full"
+                    src={buffer}
+                  />
+                }
                 {value.title}
               </div>
               <div>{value.postText}</div>
               <div>{value.username}</div>
-              <div
-                onClick={() => {
-                  navigate(`/post/${value.id}`);
-                }}
-                className="imgbox"
-              >
+              <div>
                 {authState.id === value.UserId && (
                   <form>
                     <input
@@ -123,7 +126,6 @@ const Profile = () => {
           );
         })}
 
-        <div>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</div>
         <div className="flex flex-wrap justify-center gap-4 p-32">
           {listOfImages.map((value, key) => {
             const buffer = Buffer.from(value.data.data, "base64");
@@ -133,29 +135,28 @@ const Profile = () => {
                 className="card card-compact w-96 bg-base-100 shadow-xl"
                 key={key}
               >
-                <div>
-                  <img className="w-full" src={buffer} />
-                </div>
                 {authState.id === value.UserId && (
-                  <button
-                    className="btn"
-                    onClick={() => {
-                      navigate(`/CreatePost/${value.id}`);
-                    }}
-                  >
-                    Post
-                  </button>
-                )}
-
-                {authState.id === value.UserId && (
-                  <button
-                    className="btn"
-                    onClick={() => {
-                      handleDelete(value.id);
-                    }}
-                  >
-                    Delete
-                  </button>
+                  <React.Fragment>
+                    <img className="w-full" src={buffer} />
+                    <div>
+                      <button
+                        className="btn"
+                        onClick={() => {
+                          navigate(`/CreatePost/${value.id}`);
+                        }}
+                      >
+                        Post
+                      </button>
+                      <button
+                        className="btn"
+                        onClick={() => {
+                          handleDelete(value.id);
+                        }}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </React.Fragment>
                 )}
               </div>
             );
@@ -167,29 +168,3 @@ const Profile = () => {
 };
 
 export default Profile;
-// {
-//   authState.id === value.UserId && (
-//     <form>
-//       <input
-//         type="text"
-//         onChange={(event) => {
-//           setNewTitle(event.target.value);
-//         }}
-//       />
-//       <input
-//         type="text"
-//         onChange={(event) => {
-//           setNewPostText(event.target.value);
-//         }}
-//       />
-//       <button
-//         type="submit"
-//         onClick={() => {
-//           handleUpdate(postId, newTitle, newPostText);
-//         }}
-//       >
-//         Updated
-//       </button>
-//     </form>
-//   );
-// }
