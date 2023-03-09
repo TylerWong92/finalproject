@@ -120,7 +120,20 @@ const Post = () => {
           </div>
         );
       })}
+
       <div className="imgbox">{<img src={picture} />}</div>
+      <section className="flex flex-wrap justify-center gap-4 p-64">
+        <div className="flex flex-col w-full lg:flex-row">
+          <img
+            src={picture}
+            className="grid flex-grow w-1/2 card bg-base-300 rounded-box place-items-center"
+          />
+          <div className="divider lg:divider-horizontal"></div>
+          <div className="grid flex-grow w-1/2 card bg-base-300 rounded-box place-items-center">
+            content
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
