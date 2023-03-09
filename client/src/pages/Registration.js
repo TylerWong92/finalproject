@@ -27,42 +27,44 @@ const Registration = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-full ">
-      <fieldset>
-        <Formik
-          initialValues={initialValues}
-          onSubmit={onSubmit}
-          validationSchema={validationSchema}
-        >
-          <Form>
-            <React.Fragment>
-              <label className="label">
-                <span className="label-text">Register</span>
-                <span className="label-text-alt">Login as a member!</span>
-              </label>
+    <div className=" flex justify-center items-center h-screen ">
+      <div>
+        <fieldset>
+          <Formik
+            initialValues={initialValues}
+            onSubmit={onSubmit}
+            validationSchema={validationSchema}
+          >
+            <Form>
+              <React.Fragment>
+                <label className="label">
+                  <span className="label-text">Register</span>
+                  <span className="label-text-alt">Login as a member!</span>
+                </label>
 
-              <ErrorMessage name="username" component="span" />
+                <ErrorMessage name="username" component="span" />
 
+                <Field
+                  className="input input-bordered input-ghost w-full max-w mb-4"
+                  name="username"
+                  placeholder="Username(Ex.john)"
+                />
+              </React.Fragment>
+
+              <ErrorMessage name="password" component="span" />
               <Field
                 className="input input-bordered input-ghost w-full max-w mb-4"
-                name="username"
-                placeholder="Username(Ex.john)"
+                type="password"
+                name="password"
+                placeholder="Password (More than 4 letter)"
               />
-            </React.Fragment>
-
-            <ErrorMessage name="password" component="span" />
-            <Field
-              className="input input-bordered input-ghost w-full max-w mb-4"
-              type="password"
-              name="password"
-              placeholder="Password (More than 4 letter)"
-            />
-            <button className="btn btn-block btn-outline" type="submit">
-              Register Now!
-            </button>
-          </Form>
-        </Formik>
-      </fieldset>
+              <button className="btn btn-block btn-outline" type="submit">
+                Register Now!
+              </button>
+            </Form>
+          </Formik>
+        </fieldset>
+      </div>
     </div>
   );
 };

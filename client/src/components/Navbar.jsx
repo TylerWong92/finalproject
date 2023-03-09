@@ -55,12 +55,8 @@ const Navbar = ({ authState, logout }) => {
         </div>
       </div>
       <div className="navbar-center">
-        <Link className="btn btn-ghost normal-case text-xl rounded-full ">
-          <Link to="/">
-            COSMO*
-            <br />
-            ViSION
-          </Link>
+        <Link className="btn btn-ghost normal-case text-xl rounded-full -ml-10">
+          <Link to="/">cosmo.vision</Link>
         </Link>
       </div>
       <div className="navbar-end">

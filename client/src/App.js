@@ -10,7 +10,6 @@ import PageNotFound from "./pages/PageNotFound";
 import Registration from "./pages/Registration";
 import { AuthContext } from "./helpers/AuthContext";
 import { useState, useEffect } from "react";
-import TestPage from "./pages/Testpage";
 import Navbar from "./components/Navbar";
 
 import axios from "axios";
@@ -69,7 +68,6 @@ function App() {
             <Route path="/registration" element={<Registration />} />
             <Route path="/login" element={<Login />} />
             <Route path="/profile/:id" element={<Profile />} />
-            <Route path="/testpage" element={<TestPage />} />
             <Route path="*" element={<PageNotFound />} />
           </Routes>
         </Router>
