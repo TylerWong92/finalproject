@@ -62,21 +62,25 @@ const Navbar = ({ authState, logout }) => {
       <div className="navbar-end">
         <div>
           {authState.status ? (
-            <React.Fragment>
+            <div>
               {authState.status && <button onClick={logout}>logout: </button>}
-              <button className="btn gap-2">
+              <button className="btn ml-4 gap-2" onClick={logout}>
                 Hi!
                 <div className="badge badge-secondary">
                   {authState.username}
                 </div>
               </button>
-            </React.Fragment>
+            </div>
           ) : (
-            <React.Fragment>
-              <Link to="/registration">Not a member yet?</Link>
+            <div>
+              <Link className="link pr-5 text-sm" to="/registration">
+                Not a member yet?
+              </Link>
 
-              <Link to="/login">Login</Link>
-            </React.Fragment>
+              <Link className=" btn" to="/login">
+                Login
+              </Link>
+            </div>
           )}
         </div>
       </div>
@@ -85,8 +89,3 @@ const Navbar = ({ authState, logout }) => {
 };
 
 export default Navbar;
-// {authState.status && <button onClick={logout}>logout: </button>}
-// <button className="btn gap-2">
-//   Hi!
-//   <div className="badge badge-secondary">{authState.username}</div>
-// </button>
