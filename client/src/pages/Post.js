@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../helpers/AuthContext";
+import Chatbox from "../components/Chatbox";
 const { Buffer } = require("buffer");
 
 const Post = () => {
@@ -86,51 +87,61 @@ const Post = () => {
 
   return (
     <div>
-      <h1 className="text-3xl">post-inner</h1>
-      <div>{postObject.title}</div>
-      <div>{postObject.postText}</div>
-
-      <Link to={`/profile/${postObject.UserId}`}>{postObject.username}</Link>
-
-      {authState.username === postObject.username && (
-        <button
-          onClick={() => {
-            deletePost(postObject.id);
-          }}
-        >
-          DELETE POST
-        </button>
-      )}
-
-      <h1 className="text-3xl">Comments</h1>
-      <input
-        value={newComment}
-        type="text"
-        placeholder="comment..."
-        onChange={(event) => {
-          setNewComment(event.target.value);
-        }}
-      />
-      <button onClick={addComment}>Submit Comment</button>
-      {comments.map((comment, key) => {
-        return (
-          <div key={key}>
-            <label>Username: {comment.username}</label>
-            {comment.commentBody}
-          </div>
-        );
-      })}
-
-      <div className="imgbox">{<img src={picture} />}</div>
-      <section className="flex flex-wrap justify-center gap-4 p-64">
+      <section className="flex flex-wrap justify-center gap-4 px-64 py-10">
         <div className="flex flex-col w-full lg:flex-row">
           <img
             src={picture}
             className="grid flex-grow w-1/2 card bg-base-300 rounded-box place-items-center"
           />
+
           <div className="divider lg:divider-horizontal"></div>
-          <div className="grid flex-grow w-1/2 card bg-base-300 rounded-box place-items-center">
-            content
+
+          <div className="grid flex-grow w-1/2 card bg-base-300 rounded-box place-items-left p-4">
+            <div className="text-center lg:text-left p-6">
+              <Link
+                className="badge badge-secondary"
+                to={`/profile/${postObject.UserId}`}
+              >
+                {postObject.username}
+              </Link>
+              {authState.username === postObject.username && (
+                <button
+                  className="float-right btn-outline btn btn-sm btn-error"
+                  onClick={() => {
+                    deletePost(postObject.id);
+                  }}
+                >
+                  DELETE POST
+                </button>
+              )}
+              <h1 className="text-5xl font-bold">{postObject.title}</h1>
+              <p className="py-6">{postObject.postText}</p>
+
+              <h1 className="text-3xl">Comments</h1>
+
+              {comments.map((comment, key) => {
+                return (
+                  <Chatbox
+                    key={key}
+                    username={comment.username}
+                    commentBody={comment.commentBody}
+                  />
+                );
+              })}
+            </div>
+
+            <input
+              className="input input-bordered input-ghost w-full max-w mb-4"
+              value={newComment}
+              type="text"
+              placeholder="comment..."
+              onChange={(event) => {
+                setNewComment(event.target.value);
+              }}
+            />
+            <button className="btn btn-block btn-outline" onClick={addComment}>
+              Submit Comment
+            </button>
           </div>
         </div>
       </section>
