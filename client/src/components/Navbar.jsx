@@ -24,7 +24,7 @@ const Navbar = ({ authState, logout }) => {
           </label>
           <ul
             tabIndex={0}
-            className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+            className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-300 rounded-box w-52"
           >
             {authState.status ? (
               <React.Fragment>
@@ -55,9 +55,13 @@ const Navbar = ({ authState, logout }) => {
         </div>
       </div>
       <div className="navbar-center">
-        <a className="btn btn-ghost normal-case text-xl">
-          <Link to="/">CosmoVision.ai</Link>
-        </a>
+        <Link className="btn btn-ghost normal-case text-xl rounded-full ">
+          <Link to="/">
+            COSMO*
+            <br />
+            ViSION
+          </Link>
+        </Link>
       </div>
       <div className="navbar-end">
         <div>
