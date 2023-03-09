@@ -88,7 +88,7 @@ const Post = () => {
   return (
     <div>
       <section className="flex flex-wrap justify-center gap-4 px-64 py-10">
-        <div className="flex flex-col w-full lg:flex-row">
+        <div className="flex flex-col w-full lg:flex-row justify-end">
           <img
             src={picture}
             className="grid flex-grow w-1/2 card bg-base-300 rounded-box place-items-center"
@@ -129,19 +129,23 @@ const Post = () => {
                 );
               })}
             </div>
-
-            <input
-              className="input input-bordered input-ghost w-full max-w mb-4"
-              value={newComment}
-              type="text"
-              placeholder="comment..."
-              onChange={(event) => {
-                setNewComment(event.target.value);
-              }}
-            />
-            <button className="btn btn-block btn-outline" onClick={addComment}>
-              Submit Comment
-            </button>
+            <div className="p-6 self-end">
+              <input
+                className=" input input-bordered input-ghost w-full max-w mb-4 "
+                value={newComment}
+                type="text"
+                placeholder="comment..."
+                onChange={(event) => {
+                  setNewComment(event.target.value);
+                }}
+              />
+              <button
+                className=" btn btn-block btn-outline "
+                onClick={addComment}
+              >
+                Submit Comment
+              </button>
+            </div>
           </div>
         </div>
       </section>
