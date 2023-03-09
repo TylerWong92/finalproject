@@ -7,6 +7,10 @@ const CreateImage = () => {
   const [imageData, setImageData] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
+  function handleImageClick(description) {
+    setPrompt(description);
+  }
+
   const handleLoading = () => {
     setIsLoading(true);
     // Perform action that takes some time
@@ -40,6 +44,29 @@ const CreateImage = () => {
       });
   };
 
+  const imageOptions = [
+    {
+      id: 1,
+      image: "/images/image1.png",
+      description: "Description for image 1",
+    },
+    {
+      id: 2,
+      image: "/images/image2.png",
+      description: "Description for image 2",
+    },
+    {
+      id: 3,
+      image: "/images/image3.png",
+      description: "Description for image 3",
+    },
+    {
+      id: 4,
+      image: "/images/image4.png",
+      description: "Description for image 4",
+    },
+  ];
+
   return (
     <div>
       <section className="flex flex-wrap justify-center gap-4 px-64 py-10">
@@ -48,16 +75,43 @@ const CreateImage = () => {
             <form onSubmit={handleSubmit}>
               <div className="text-center lg:text-left p-6">
                 <h1 className="text-4xl font-bold mb-4">Enter a prompt:</h1>
-                <input
-                  className=" input input-bordered input-ghost w-full max-w mb-4 "
-                  id="prompt-input"
-                  type="text"
-                  placeholder="Enter prompt..."
-                  value={prompt}
-                  onChange={(event) => setPrompt(event.target.value)}
-                />
+
                 <p className="py-6">Pick a style</p>
-                <ArtStyle />
+                {imageOptions.map((option) => (
+                  <div
+                    key={option.id}
+                    style={{
+                      width: "200px",
+                      height: "200px",
+                      margin: "10px",
+                      cursor: "pointer",
+                    }}
+                    onClick={() => handleImageClick(option.description)}
+                  >
+                    <img
+                      src={option.image}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                      }}
+                    />
+                  </div>
+                ))}
+                <form>
+                  <textarea
+                    className=" input input-bordered input-ghost w-full max-w mb-4 "
+                    value={prompt || ""}
+                    onChange={(event) => setPrompt(event.target.value)}
+                    placeholder="Enter your text here"
+                    style={{
+                      display: "block",
+                      width: "100%",
+                      height: "100px",
+                      marginTop: "10px",
+                    }}
+                  />
+                </form>
               </div>
 
               <div className="p-6 self-end">
@@ -72,7 +126,11 @@ const CreateImage = () => {
 
           <div className="grid flex-grow w-1/2 card bg-base-300 rounded-box p-4">
             {imageData ? (
-              <img className="full-w" src={imageData} alt="Generated image" />
+              <img
+                className="full-w rounded-box"
+                src={imageData}
+                alt="Generated image"
+              />
             ) : (
               <button className="btn btn-square loading"></button>
             )}
