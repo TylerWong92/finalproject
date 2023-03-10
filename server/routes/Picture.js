@@ -25,7 +25,7 @@ const predict = async function (req) {
   const response = await openai.createImage({
     prompt: req.body.prompt,
     n: 1,
-    size: "256x256",
+    size: "512x512",
     response_format: "b64_json",
   });
 

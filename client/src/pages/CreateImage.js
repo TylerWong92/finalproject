@@ -35,7 +35,7 @@ const CreateImage = () => {
         }
       )
       .then((response) => {
-        console.log("image stored");
+        alert("image stored successfully");
       });
   };
 
@@ -114,7 +114,7 @@ const CreateImage = () => {
           <div className="grid flex-grow w-1/2 card bg-base-300 rounded-box p-4">
             {imageData ? (
               <img
-                className="full-w rounded-box"
+                className="full-w rounded-box mb-4 w-full"
                 src={imageData}
                 alt="Generated image"
               />

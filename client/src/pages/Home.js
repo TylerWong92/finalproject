@@ -14,7 +14,10 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="flex flex-wrap justify-center gap-4 p-32">
+    <div className="flex flex-wrap justify-center gap-4 p-32 relative">
+      <h1 className="absolute text-9xl font-bold z-10 left-28 top-0 opacity-5">
+        Discovery
+      </h1>
       {listOfPosts.map((post, index) => (
         <Card key={index} post={post} />
       ))}

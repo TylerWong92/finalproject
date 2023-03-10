@@ -37,9 +37,6 @@ const Navbar = ({ authState, logout }) => {
                 <li>
                   <Link to={`/profile/${authState.id}`}>Profile</Link>
                 </li>
-                <li>
-                  <Link to="/testpage">Test Page</Link>
-                </li>
               </React.Fragment>
             ) : (
               <React.Fragment>
